@@ -5,6 +5,8 @@ static int topbar = 1;      /* -b  option; if 0, dmenu appears at bottom     */
 static int centered = 1;    /* -c option; centers dmenu on screen */
 static int min_width = 500; /* minimum width when centered */
 static const unsigned int alpha = 0xff; /* Amount of opacity. 0xff is opaque */
+static const unsigned int bgalpha = 0xe0;
+static const unsigned int fgalpha = OPAQUE;
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {"monospace:size=10"};
 static const char *prompt =
@@ -17,11 +19,13 @@ static const char *colors[SchemeLast][2] = {
 };
 
 static const unsigned int alphas[SchemeLast][2] = {
-    [SchemeNorm] = {OPAQUE, alpha},
-    [SchemeSel] = {OPAQUE, alpha},
-    [SchemeOut] = {OPAQUE, alpha},
+    /*		fgalpha		bgalphga	*/
+    [SchemeNorm] = {fgalpha, bgalpha},
+    [SchemeSel] = {fgalpha, bgalpha},
+    [SchemeOut] = {fgalpha, bgalpha},
 };
-/* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+/* -l option; if nonzero, dmenu uses vertical list with given number of
+   lines */
 
 static unsigned int lines = 0;
 /* -h option; minimum height of a menu line */
