@@ -76,8 +76,10 @@ static Colormap cmap;
 
 #include "config.h"
 
-static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
-static char *(*fstrstr)(const char *, const char *) = strstr;
+static char *cistrstr(const char *s, const char *sub);
+static int (*fstrncmp)(const char *, const char *, size_t) = strncasecmp;
+static char *(*fstrstr)(const char *, const char *) = cistrstr;
+
 static void xinitvisual();
 
 static unsigned int textw_clamp(const char *str, unsigned int n) {
@@ -985,9 +987,9 @@ int main(int argc, char *argv[]) {
       fast = 1;
     else if (!strcmp(argv[i], "-c")) /* centers dmenu on screen */
       centered = 1;
-    else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
-      fstrncmp = strncasecmp;
-      fstrstr = cistrstr;
+    else if (!strcmp(argv[i], "-s")) { /* case-sensitive item matching */
+      fstrncmp = strncmp;
+      fstrstr = strstr;
     } else if (!strcmp(argv[i], "-vi")) {
       vi_mode = 1;
       using_vi_mode = start_mode;
